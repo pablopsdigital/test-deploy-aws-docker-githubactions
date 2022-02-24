@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  
+  #RabbitMQ services
+  rabbitmq:
+    container_name: wallaclone-queue-rabbit
+    image: rabbitmq:management-alpine
+    ports:
+      - 15672:15672
+     
+  #MongoDB services
+  mongo_db:
+    container_name: wallaclone-db-mongo
+    restart: always
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    logging:
+      driver: none
+    volumes:
+      - mongodb:/data/db
+      
+  #Node app services
+  api:
+    container_name: wallaclone-api-node
+    restart: always
+    build: .
+    ports:
+      - "4000:3000"
+    environment:
+        PORT: 3000
+        MONGODB_URI: mongodb://mongodb:27017
+        DB_NAME: wallaclone
+        NAME: Wallaclone
+    links:
+      - mongo_db
+    volumes:
+      - ./:/app
+    depends_on:
+      - mongo_db
+      
+  
+volumes:
+  mongodb: 
+
+
+    
+
+
