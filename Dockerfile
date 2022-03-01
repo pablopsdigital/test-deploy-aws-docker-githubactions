@@ -1,29 +1,30 @@
-#https://hub.docker.com/_/node
-#https://hub.docker.com/_/mongo
-FROM alpine:3.14
+FROM node:16.14-alpine3.14
 
-ENV NODE_VERSION 16.14.0
+LABEL maintainer="pablopsdigital@gmail.com"
+LABEL application="wallaclone-server"
 
-RUN mkdir -p /usr/src/app
+ENV NODE_ENV=production
+ENV PORT=3000
 
-WORKDIR /src/src/app
-
-COPY package*.json ./
-
-RUN npm install
-
+WORKDIR /app
 COPY . .
-
+RUN npm install --silent
 EXPOSE 3000
+CMD ["npm","run","start"]
 
-# CMD ["npm","start"]
-CMD ["npm","run","dev"]
+# create image
+# docker build -t nombre-imagen directorioDockerfile
+# docker build -t "wallaclone-server" .
+
+# levantar la imagen
+# docker run --rm -p 3000:3000 -it "wallaclone-server"
 
 
-
-
-
-
-
-
-#docker run -d --hostname=mq --name mq -p 8080:15672 -p 5672:5672 rabbitmq:3-management
+# FROM node:16.14-alpine3.14
+# ENV NODE_ENV=production
+# ENV PORT=3000
+# WORKDIR /app
+# COPY . .
+# RUN npm install --silent
+# EXPOSE 3000
+# CMD ["npm", "start"]

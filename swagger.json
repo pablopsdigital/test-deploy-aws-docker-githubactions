@@ -1,0 +1,86 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Wallaclone",
+    "description": "Wallaclone API Information",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "KeepCoding",
+      "email": "cursos@keepcoding.io",
+      "url": "https://keepcoding.io/"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Advertisements",
+      "description": "API for advertisements in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/advertisement": {
+      "parameters": [
+        {
+          "name": "name",
+          "in": "query",
+          "required": false,
+          "description": "Ability to search by words or letters in the name.",
+          "type": "string"
+        },
+        {
+          "name": "sale",
+          "in": "query",
+          "required": false,
+          "description": "Filter between ads for sale (true) and buy (false)",
+          "type": "string"
+        },
+        {
+          "name": "skip",
+          "in": "query",
+          "required": false,
+          "description": "To skip the start records.",
+          "type": "integer"
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "description": "Limit the number of returned records.",
+          "type": "integer"
+        },
+        {
+          "name": "price",
+          "in": "query",
+          "required": false,
+          "description": "Limiting the price range there are different possibilities: \n10-50:  Price indluded between the two value\n10-: Price greater than value, excluding value\n-50: Price less than value, excluding value\n50: Price equal to value",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Advertisements"],
+        "summary": "Get all advertisements in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Advertisement"
+            }
+          }
+        }
+      }
+    },
+    "/advertisement/{advertisementId}": {}
+  },
+  "definitions": {
+    "Advertisement": {},
+    "User": {}
+  }
+}
